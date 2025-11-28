@@ -51,10 +51,11 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
+    ksp("androidx.room:room-compiler:2.6.1")
 
     implementation(libs.compose.icons)
     implementation(libs.bundles.room)
-    ksp(libs.room.compiler)
+
     implementation(libs.lifecycle.viewmodel.compose)
     implementation(libs.lifecycle.runtime.compose)
     implementation(libs.navigation.compose)
