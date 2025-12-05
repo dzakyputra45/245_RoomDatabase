@@ -1,6 +1,7 @@
 package com.example.myroomsatu.viewmodel.provider
 
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
@@ -16,6 +17,19 @@ object PenyediaViewModel {
         initializer {
             HomeViewModel(
                 repositoriSiswa = this.aplikasiSiswa().container.repositoriSiswa
+            )
+        }
+        // Detail ViewModel
+        initializer {
+            DetailViewModel(this.createSavedStateHandle(), aplikasiSiswa().container.repositoriSiswa)
+        }
+
+        // Detail Edit
+        initializer {
+            val savedStateHandle = this.createSavedStateHandle()
+            EditViewModel(
+                savedStateHandle = savedStateHandle,
+                repositoriSiswa = aplikasiSiswa().container.repositoriSiswa
             )
         }
 
