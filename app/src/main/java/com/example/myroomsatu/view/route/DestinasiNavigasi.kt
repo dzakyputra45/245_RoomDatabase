@@ -1,14 +1,8 @@
 package com.example.myroomsatu.view.route
 
-sealed class DestinasiNavigasi (
-    /**
-     * Nama unik untuk menentukan jalur untuk composable
-     */
+sealed class DestinasiNavigasi(
     val route: String,
-
-    /**
-     * String resource id yang berisi judul yang akan ditampilkan di layar halaman
-     */
-
-    val titleRes: Int
+    val titleRes: Int,
+    val itemIdArg: String,
+    val routeWithArgs: String
 )
