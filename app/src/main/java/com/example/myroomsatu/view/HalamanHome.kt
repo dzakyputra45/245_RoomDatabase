@@ -22,13 +22,18 @@ import com.example.myroomsatu.viewmodel.HomeViewModel
 import com.example.myroomsatu.viewmodel.provider.PenyediaViewModel
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.unit.Dp
 import com.example.myroomsatu.room.Siswa.Siswa
+import androidx.compose.foundation.clickable
+
+
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     navigateToItemEntry: () -> Unit,
+    navigateToItemDetail: (Int) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = viewModel(factory = PenyediaViewModel.Factory)
 ){
@@ -60,6 +65,7 @@ fun HomeScreen(
         val uiStateSiswa by viewModel.homeUIState.collectAsState()
         BodyHome(
             itemSiswa = uiStateSiswa.listSiswa,
+            onSiswaClick = navigateToItemDetail,
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize()
@@ -70,6 +76,7 @@ fun HomeScreen(
 @Composable
 fun BodyHome(
     itemSiswa: List<Siswa>,
+    onSiswaClick: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -86,6 +93,7 @@ fun BodyHome(
         } else {
             ListSiswa(
                 itemSiswa = itemSiswa,
+                onSiswaClick = {onSiswaClick(it.id)},
                 modifier = Modifier.padding(
                     horizontal = (8.dp))
             )
@@ -96,6 +104,7 @@ fun BodyHome(
 @Composable
 fun ListSiswa(
     itemSiswa: List<Siswa>,
+    onSiswaClick: (Siswa) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(modifier = modifier) {
@@ -105,12 +114,14 @@ fun ListSiswa(
         ) { person ->
             DataSiswa(
                 siswa = person,
-                modifier = Modifier.padding((8.dp)
+                modifier = Modifier
+                    .padding(8.dp)
+                    .clickable { onSiswaClick(person)}
                 )
-            )
         }
     }
 }
+
 
 @Composable
 fun DataSiswa(
